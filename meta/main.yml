@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Henning Orth / E-VANCE
+  description: Use rclone with Trellis
+  license: "license (MIT)"
+  min_ansible_version: 2.4
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+    - xenial
+    - bionic
+  galaxy_tags:
+    - networking
+    - system
+dependencies: []
