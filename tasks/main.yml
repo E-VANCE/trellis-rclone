@@ -2,9 +2,9 @@
 - name: Gather OS specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - '{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml'
-    - '{{ ansible_distribution }}.yml'
-    - '{{ ansible_os_family }}.yml'
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
   tags:
     - vars
 
@@ -16,9 +16,9 @@
 
 - name: Create facts file from template
   ansible.builtin.template:
-    src: 'etc/ansible/facts.d/rclone.fact.j2'
+    src: "etc/ansible/facts.d/rclone.fact.j2"
     dest: /etc/ansible/facts.d/rclone.fact
-    mode: '0755'
+    mode: 0755
   register: rclone__register_facts
 
 - name: Re-read facts after adding custom fact
@@ -39,7 +39,7 @@
         rclone_version: "{{ rclone_latest_version.content | replace ('rclone v', '', 1) | trim }}"
   when:
     - rclone_version | length == 0 or rclone_version == "0.0.0"
-    - rclone_release == 'stable'
+    - rclone_release == "stable"
 
 - block:
     - name: Check latest beta rclone version number
@@ -54,7 +54,7 @@
         beta_version_url: https://beta.rclone.org/rclone-beta-latest-linux-{{ rclone_arch }}.zip
   when:
     - rclone_version | length == 0 or rclone_version == "0.0.0"
-    - rclone_release == 'beta'
+    - rclone_release == "beta"
 
 - name: Install the binary
   include_tasks: install-bin.yml
@@ -64,14 +64,14 @@
   block:
     - name: Create config directory
       file:
-        path: '{{ rclone_config_location | dirname }}'
+        path: "{{ rclone_config_location | dirname }}"
         state: directory
-        mode: '0700'
+        mode: 0700
 
     - name: Set up rclone config
       template:
         src: rclone.conf.j2
-        dest: '{{ rclone_config_location }}'
+        dest: "{{ rclone_config_location }}"
         mode: 0600
   become: true
   when: rclone_configs is defined

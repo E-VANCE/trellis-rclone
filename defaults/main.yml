@@ -5,7 +5,7 @@ rclone_arch: amd64
 # Release of rclone to use – 'default' or 'beta' are accepted
 rclone_release: stable
 
-rclone_version: '{{ ansible_local.rclone.version | d("0.0.0") }}'
+rclone_version: "{{ ansible_local.rclone.version | d('0.0.0') }}"
 
 # Defaults in case no variables for OS are chosen
 rclone_setup_tmp_dir: "/tmp/rclone_setup"
