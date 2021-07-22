@@ -11,6 +11,8 @@ galaxy_info:
     - xenial
     - bionic
   galaxy_tags:
+    - trellis
+    - wordpress
     - networking
     - system
 dependencies: []
