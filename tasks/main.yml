@@ -74,6 +74,7 @@
         dest: "{{ rclone_config_location }}"
         mode: 0600
   become: true
+  with_dict: "{{ wordpress_sites }}"
   when: rclone_configs is defined
 
 - name: Update Ansible facts if they were modified
