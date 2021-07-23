@@ -60,6 +60,14 @@
   include_tasks: install-bin.yml
   when: (((not ansible_local.rclone.installed|d())|bool) or (ansible_local.rclone.installed_version|d("0.0.0")) != rclone_version)
 
+- name: Print env
+  debug:
+    msg: "Environment: {{ env }}"
+
+- name: Print config path
+  debug:
+    msg: "Config location: {{ rclone_config_location }}"
+
 - name: Install configs
   block:
     - name: Create config directory
