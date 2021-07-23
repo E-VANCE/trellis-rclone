@@ -61,6 +61,7 @@
   when: (((not ansible_local.rclone.installed|d())|bool) or (ansible_local.rclone.installed_version|d("0.0.0")) != rclone_version)
 
 - name: Install configs
+  with_dict: "{{ wordpress_sites }}"
   block:
     - name: Create config directory
       file:
@@ -74,7 +75,6 @@
         dest: "{{ rclone_config_location }}"
         mode: 0600
   become: true
-  with_dict: "{{ wordpress_sites }}"
   when: rclone_configs is defined
 
 - name: Update Ansible facts if they were modified
