@@ -11,7 +11,7 @@ rclone_version: "{{ ansible_local.rclone.version | d('0.0.0') }}"
 rclone_setup_tmp_dir: "/tmp/rclone_setup"
 
 # The location to install the config file if configured
-rclone_config_location: "/root/.config/rclone/rclone.conf"
+rclone_config_location: "/home/vagrant/.config/rclone/rclone.conf"
 
 install_manpages: true
 
