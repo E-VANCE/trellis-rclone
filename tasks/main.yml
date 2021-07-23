@@ -60,22 +60,20 @@
   include_tasks: install-bin.yml
   when: (((not ansible_local.rclone.installed|d())|bool) or (ansible_local.rclone.installed_version|d("0.0.0")) != rclone_version)
 
-- name: Create config directory
-  file:
-    path: "{{ rclone_config_location | dirname }}"
-    state: directory
-    mode: 0700
-  become: true
-  with_dict: "{{ wordpress_sites }}"
-  when: rclone_configs is defined
+- name: Install configs
+  block:
+    - name: Create config directory
+      file:
+        path: '{{ rclone_config_location | dirname }}'
+        state: directory
+        mode: '0700'
 
-- name: Set up rclone config
-  template:
-    src: rclone.conf.j2
-    dest: "{{ rclone_config_location }}"
-    mode: 0600
+    - name: Set up rclone config
+      template:
+        src: rclone.conf.j2
+        dest: '{{ rclone_config_location }}'
+        mode: 0600
   become: true
-  with_dict: "{{ wordpress_sites }}"
   when: rclone_configs is defined
 
 - name: Update Ansible facts if they were modified
